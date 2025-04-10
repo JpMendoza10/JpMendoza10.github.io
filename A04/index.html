@@ -56,9 +56,31 @@
       border-radius: 15px;
     }
 
+    .title-text {
+      font-size: 50px;
+      font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     @media (max-width: 768px) {
-      .spec-card {
-        text-align: center;
+      .title-text {
+        font-size: 36px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .row-cols-lg-4 .col {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .row-cols-lg-4 .col {
+        flex: 0 0 100%;
+        max-width: 100%;
       }
     }
   </style>
@@ -75,7 +97,7 @@
 
   <div class="content">
     <div class="image-container text-center" id="home">
-      <p style="font-size: 50px; font-weight: bold;">Nothing Phone 2a</p>
+      <p class="title-text">Nothing Phone 2a</p>
       <h4 style="opacity: 0.5; font-weight: lighter;">Just pure instinct, formed as a machine</h4>
       <img src="./img/np2a.png" alt="Nothing Phone 2a">
     </div>
@@ -84,7 +106,7 @@
 
     <div class="container py-5" id="overview">
       <div class="row justify-content-center">
-        <div class="col-md-8 text-center"
+        <div class="col-md-8 text-center">
           <div class="d-flex justify-content-center gap-4 flex-wrap">
             <div class="text-center">
               <img src="./img/front.png" alt="Front View" class="img-fluid" style="max-width: 200px; border-radius: 10px;">
@@ -102,7 +124,7 @@
     <hr>
 
     <div class="container py-5" id="techspecs">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         <div class="col">
           <div class="spec-card bg-dark text-white text-center">
             <h1>MediaTek Dimensity 7200 Pro 5G</h1>
