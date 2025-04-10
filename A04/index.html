@@ -19,36 +19,6 @@
       box-shadow: 0 10px 20px rgba(255, 255, 255, 0.3);
     }
 
-    /* Sidebar Styles */
-    .sidebar {
-      position: fixed;
-      right: 0;
-      top: 0;
-      background-color: #f4f4f4;
-      padding: 20px;
-      width: 200px;
-      height: 100%;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 10px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .sidebar a:hover {
-      color: #007bff;
-    }
-
-    /* Smooth scrolling */
-    html {
-      scroll-behavior: smooth;
-    }
-
     /* Navigation Container */
     .nav-container {
       padding: 10px;
@@ -56,20 +26,17 @@
       width: 100%;
     }
 
-    .nav-container h1 {
-      margin: 0;
-    }
-
     .nav-links {
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 10px;
     }
 
     .nav-links a {
       text-decoration: none;
       color: white;
-      font-size: 24px;
+      font-size: 20px;
     }
 
     .nav-links a:hover {
@@ -84,40 +51,20 @@
     }
 
     .image-container img {
-      width: 80%;
+      width: 100%;
       max-width: 800px;
       border-radius: 15px;
     }
 
-    /* Tech Specs Section */
-    .spec-card-container {
-      background-color: rgb(187, 187, 187);
-      padding: 1rem;
-    }
-
-    .spec-card-content {
-      background-color: #383535;
-      color: white;
-    }
-
-    .spec-card-text {
-      font-size: 0.9rem;
-      font-weight: bold;
-      color: #f0f0f0;
-    }
-
-    /* Adjust Layout of Tech Specs Section */
-    .tech-specs-col {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
+    @media (max-width: 768px) {
+      .spec-card {
+        text-align: center;
+      }
     }
   </style>
 </head>
 
 <body style="background: white; color: black; font-family: Arial, sans-serif;">
-  <!-- Title and Navigation Links -->
   <div class="nav-container p-4">
     <div class="nav-links">
       <a href="#home">Home</a>
@@ -126,102 +73,86 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <div class="content">
-    <!-- Home Section -->
-    <div class="image-container" id="home" style="text-align: center; margin: 2rem 0; font-family: monospace;">
-      <p style="line-height:1.5; font-size: 50px; font-weight: bold; line-height: 0.8;">Nothing Phone 2a</p>
-      <h4 style="line-height:1.0; opacity: 0.5; font-weight: lighter;">Just pure instinct, formed as a machine</h4>
+    <div class="image-container text-center" id="home">
+      <p style="font-size: 50px; font-weight: bold;">Nothing Phone 2a</p>
+      <h4 style="opacity: 0.5; font-weight: lighter;">Just pure instinct, formed as a machine</h4>
       <img src="./img/np2a.png" alt="Nothing Phone 2a">
     </div>
 
-    <div class="divider" style="border-bottom: 1px solid #ccc; margin: 2rem 0;"></div>
+    <hr>
 
-    <!-- Overview Section -->
-    <div class="overview-container" id="overview" style="min-height: 100vh; padding-top: 50px;">
-      <div class="row">
-        <div class="col d-flex flex-column align-items-center">
-          <div class="spec-card text-center" style="border-radius: 1rem; padding: 1rem; background-color: rgb(187,187,187); color: white; width: 100%;">
-            <div class="d-flex justify-content-center gap-4">
-              <div class="text-center">
-                <img src="./img/front.png" alt="Front View of Nothing Phone 2a" style="width: 100%; max-width: 200px; border-radius: 10px;">
-                <p style="margin-top: 5px; font-size: 16px; opacity: 0.8; color: black;">Front</p>
-              </div>
-              <div class="text-center">
-                <img src="./img/back.png" alt="Back View of Nothing Phone 2a" style="width: 100%; max-width: 200px; border-radius: 10px;">
-                <p style="margin-top: 5px; font-size: 16px; opacity: 0.8; color: black;">Back</p>
-              </div>
+    <div class="container py-5" id="overview">
+      <div class="row justify-content-center">
+        <div class="col-md-8 text-center"
+          <div class="d-flex justify-content-center gap-4 flex-wrap">
+            <div class="text-center">
+              <img src="./img/front.png" alt="Front View" class="img-fluid" style="max-width: 200px; border-radius: 10px;">
+              <p class="mt-2">Front</p>
+            </div>
+            <div class="text-center">
+              <img src="./img/back.png" alt="Back View" class="img-fluid" style="max-width: 200px; border-radius: 10px;">
+              <p class="mt-2">Back</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="divider" style="border-bottom: 1px solid #ccc; margin: 2rem 0;"></div>
+    <hr>
 
-    <!-- Tech Specs Section -->
     <div class="container py-5" id="techspecs">
-      <div class="spec-card" style="background-color: rgb(187, 187, 187); border-radius: 1rem; padding: 1rem;">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; height: 100%; background-color: #383535; color: white;">
-              <h1>MediaTek Dimensity 7200 Pro 5G</h1>
-              <h5>8-core • 4 nm • Gen 2</h5>
-            </div>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col">
+          <div class="spec-card bg-dark text-white text-center">
+            <h1>MediaTek Dimensity 7200 Pro 5G</h1>
+            <h5>8-core • 4 nm • Gen 2</h5>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; height: 100%; background-color: #383535; color: white; display: flex; flex-direction: column; justify-content: space-between;">
-              <h3 style="text-align: center;">Nothing OS 2.5</h3>
-              <h2 style="font-style: italic; margin-top: auto; text-align: end;">Powered by Android 14</h2>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-secondary text-white text-center">
+            <h3>Nothing OS 2.5</h3>
+            <h2 class="mt-auto">Powered by Android 14</h2>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; height: 100%; background-color: #1e1e40; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-              <h1>Camera</h1>
-              <h6 style="margin-top: 10px;">32 MP Front Camera</h6>
-              <h6 style="margin-top: 5px;">Dual 50 MP Main & Ultra-wide Cameras</h6>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-primary text-white text-center">
+            <h1>Camera</h1>
+            <h6>32 MP Front Camera</h6>
+            <h6>Dual 50 MP Main & Ultra-wide</h6>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; height: 100%; background-color: #383535; color: white;">
-              <h1 style="text-align: end;">Glyph Interface</h1>
-              <h5 style="text-align: end; font-style: italic;">15 innovative functions</h5>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-dark text-white text-end">
+            <h1>Glyph Interface</h1>
+            <h5>15 innovative functions</h5>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; font-size: 0.9rem; font-weight: bold; height: 100%; background-color: #f2f2f2; color: black;">
-              <h3 style="font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 15px; text-transform: uppercase;">Display</h3>
-              <p style="font-size: 1rem; color: #555; margin-bottom: 10px; line-height: 1.5;">120 Hz 10-bit flexible AMOLED</p>
-              <p style="font-size: 1rem; color: #555; margin-bottom: 10px; line-height: 1.5;">1,300 nits Peak Brightness</p>
-              <p style="font-size: 1rem; color: #555; line-height: 1.5;">240 Hz Touch Sampling</p>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-light text-dark text-center">
+            <h3>Display</h3>
+            <p>120 Hz 10-bit flexible AMOLED</p>
+            <p>1,300 nits Peak Brightness</p>
+            <p>240 Hz Touch Sampling</p>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; font-size: 0.9rem; font-weight: bold; height: 100%; background-color: #f2f2f2; color: black;">
-              <h3 style="font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 15px; text-transform: uppercase;">Battery & Charging</h3>
-              <p style="font-size: 1rem; color: #555; margin-bottom: 10px; line-height: 1.5;">5000 mAh Battery - Up to 29 hours video playback</p>
-              <p style="font-size: 1rem; color: #555; line-height: 1.5;">45W Fast Charging - 50% in 20 min</p>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-light text-dark text-center">
+            <h3>Battery & Charging</h3>
+            <p>5000 mAh Battery - Up to 29h video playback</p>
+            <p>45W Fast Charging - 50% in 20 min</p>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; height: 100%; background-color: #94a823; color: white;">
-              <h1 style="text-align: center; font-weight: bold; letter-spacing: 2px;">20 GB RAM</h1>
-              <p style="text-align: center; font-size: 1rem; line-height: 1.5; font-weight: lighter; color: #f0f0f0;">12 GB + 8 GB RAM Booster</p>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-success text-white text-center">
+            <h1>20 GB RAM</h1>
+            <p>12 GB + 8 GB RAM Booster</p>
           </div>
-
-          <div class="col">
-            <div class="spec-card" style="border-radius: 1rem; padding: 1rem; height: 100%; background-color: #c20f2f; color: white;">
-              <h3 style="text-align: center; font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Designed in London</h3>
-            </div>
+        </div>
+        <div class="col">
+          <div class="spec-card bg-danger text-white text-center">
+            <h3>Designed in London</h3>
           </div>
-
         </div>
       </div>
     </div>
@@ -229,5 +160,4 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
