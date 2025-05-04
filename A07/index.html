@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      padding: 20px;
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    /* Heading */
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #4b7bec;
+    }
+
+    /* Search container */
+    .search-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      max-width: 100%;
+      flex-grow: 1;
+    }
+
+    /* Input and Button */
+    input, button {
+      padding: 12px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #4b7bec;
+    }
+
+    input {
+      width: 100%;
+      max-width: 350px;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      background-color: #4b7bec;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      max-width: 350px;
+    }
+
+    button:hover {
+      background-color: #2d4a9e;
+    }
+
+    /* Weather Info */
+    #weather {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      background-color: #fff;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
+      max-height: 300px; /* Limit height to avoid overflow */
+      overflow: auto; /* Allow scrolling within the weather box */
+      text-align: center;
+    }
+
+    /* Weather Text */
+    #weather h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #4b7bec;
+    }
+
+    #weather p {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    /* Weather Icon */
+    #weather img {
+      width: 60px;
+      height: 60px;
+      margin-top: 10px;
+    }
+
+    /* Error message */
+    .error {
+      color: #e74c3c;
+      font-size: 1.2em;
+      margin-top: 15px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+      input, button {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather App 🌦️</h1>
+  <div class="search-container">
+    <input type="text" id="city" placeholder="Enter city (e.g., Santo Tomas,PH)" />
+    <button onclick="getWeather()">Get Weather</button>
+  </div>
+  <div id="weather"></div>
+
+  <script>
+    async function getWeather() {
+      const city = document.getElementById('city').value.trim();
+      const apiKey = '30f85d3eef0291e6e6390211d135fe75';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+
+      const weatherDiv = document.getElementById('weather');
+      weatherDiv.innerHTML = 'Loading...';
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);  // Debugging - view full API response in console
+
+        if (data.cod === 200) {
+          weatherDiv.innerHTML = `
+            <h2>${data.name}, ${data.sys.country}</h2>
+            <p>🌡️ Temperature: ${data.main.temp} °C</p>
+            <p>🌬️ Wind: ${data.wind.speed} m/s</p>
+            <p>☁️ Weather: ${data.weather[0].main}</p>
+            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="weather icon">
+          `;
+        } else {
+          weatherDiv.innerHTML = `<p class="error">❌ Error: ${data.message}</p>`;
+        }
+      } catch (error) {
+        weatherDiv.innerHTML = `<p class="error">❌ Network error. Try again later.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
