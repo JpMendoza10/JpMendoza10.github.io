@@ -4,18 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Weather App</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <style>
-    /* Basic Reset */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Body styling */
     body {
-      font-family: 'Arial', sans-serif;
-      background: #f5f7fa;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
       color: #333;
       display: flex;
       justify-content: center;
@@ -23,17 +22,22 @@
       height: 100vh;
       flex-direction: column;
       padding: 20px;
-      overflow: hidden; /* Prevent scrolling */
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* Heading */
+    body.dark {
+      background: #1e1e2f;
+      color: #eee;
+    }
+
     h1 {
       font-size: 2.5em;
       margin-bottom: 20px;
-      color: #4b7bec;
+      color: #ffffff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     }
 
-    /* Search container */
     .search-container {
       display: flex;
       flex-direction: column;
@@ -44,51 +48,54 @@
       flex-grow: 1;
     }
 
-    /* Input and Button */
     input, button {
       padding: 12px;
       margin: 10px;
       font-size: 16px;
       border-radius: 8px;
-      border: 2px solid #4b7bec;
+      border: none;
     }
 
     input {
       width: 100%;
       max-width: 350px;
       outline: none;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
     button {
-      background-color: #4b7bec;
+      background: #4b7bec;
       color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
       width: 100%;
       max-width: 350px;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.3s ease;
     }
 
     button:hover {
-      background-color: #2d4a9e;
+      background: #2d4a9e;
+      transform: scale(1.05);
     }
 
-    /* Weather Info */
     #weather {
       margin-top: 20px;
       padding: 20px;
-      border-radius: 12px;
-      background-color: #fff;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      background-color: #ffffffee;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       max-width: 450px;
       margin-left: auto;
       margin-right: auto;
-      max-height: 300px; /* Limit height to avoid overflow */
-      overflow: auto; /* Allow scrolling within the weather box */
       text-align: center;
+      animation: fadeIn 0.5s ease;
+      transition: background 0.3s;
     }
 
-    /* Weather Text */
+    body.dark #weather {
+      background-color: #2c2c3e;
+    }
+
     #weather h2 {
       font-size: 1.5em;
       margin-bottom: 10px;
@@ -97,24 +104,78 @@
 
     #weather p {
       font-size: 1.1em;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    /* Weather Icon */
     #weather img {
       width: 60px;
       height: 60px;
       margin-top: 10px;
     }
 
-    /* Error message */
     .error {
       color: #e74c3c;
       font-size: 1.2em;
       margin-top: 15px;
     }
 
-    /* Responsive Design */
+    .temp-hot {
+      color: #e74c3c;
+    }
+
+    .temp-warm {
+      color: #f39c12;
+    }
+
+    .temp-cool {
+      color: #3498db;
+    }
+
+    .temp-cold {
+      color: #2ecc71;
+    }
+
+    .toggle-container {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+
+    .toggle-btn {
+      width: 30px;
+      height: 16px;
+      background: #4b7bec;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .toggle-circle {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      transition: left 0.3s;
+    }
+
+    .dark .toggle-circle {
+      left: 16px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     @media (max-width: 600px) {
       h1 {
         font-size: 2em;
@@ -126,34 +187,61 @@
   </style>
 </head>
 <body>
+  <div class="toggle-container">
+    <div class="toggle-btn" onclick="toggleDarkMode()">
+      <div class="toggle-circle"></div>
+    </div>
+  </div>
   <h1>Weather App 🌦️</h1>
   <div class="search-container">
-    <input type="text" id="city" placeholder="Enter city (e.g., Santo Tomas,PH)" />
+    <input type="text" id="city" placeholder="Enter city (e.g., Santo Tomas,PH)" onkeydown="if(event.key==='Enter') getWeather()" />
     <button onclick="getWeather()">Get Weather</button>
   </div>
   <div id="weather"></div>
 
   <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+    }
+
     async function getWeather() {
       const city = document.getElementById('city').value.trim();
       const apiKey = '30f85d3eef0291e6e6390211d135fe75';
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
 
       const weatherDiv = document.getElementById('weather');
-      weatherDiv.innerHTML = 'Loading...';
+      if (!city) {
+        weatherDiv.innerHTML = `<p class="error">❌ Please enter a city.</p>`;
+        return;
+      }
+
+      weatherDiv.innerHTML = '<p>Loading...</p>';
 
       try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);  // Debugging - view full API response in console
 
         if (data.cod === 200) {
+          let tempClass = 'temp-warm';
+          const temp = data.main.temp;
+
+          if (temp >= 30) tempClass = 'temp-hot';
+          else if (temp >= 20) tempClass = 'temp-warm';
+          else if (temp >= 10) tempClass = 'temp-cool';
+          else tempClass = 'temp-cold';
+
+          const weatherCondition = data.weather[0].description;
+          const weatherIcon = data.weather[0].icon;
+          const weatherConditionText = weatherCondition.charAt(0).toUpperCase() + weatherCondition.slice(1);
+
           weatherDiv.innerHTML = `
             <h2>${data.name}, ${data.sys.country}</h2>
-            <p>🌡️ Temperature: ${data.main.temp} °C</p>
+            <p class="${tempClass}">🌡️ Temperature: ${temp} °C</p>
+            <p>🤒 Feels Like: ${data.main.feels_like} °C</p>
+            <p>💧 Humidity: ${data.main.humidity}%</p>
             <p>🌬️ Wind: ${data.wind.speed} m/s</p>
-            <p>☁️ Weather: ${data.weather[0].main}</p>
-            <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="weather icon">
+            <p>☁️ Condition: ${weatherConditionText}</p>
+            <img src="https://openweathermap.org/img/wn/${weatherIcon}@2x.png" alt="weather icon" onerror="this.style.display='none'">
           `;
         } else {
           weatherDiv.innerHTML = `<p class="error">❌ Error: ${data.message}</p>`;
