@@ -1,0 +1,101 @@
+/* PARALLAX.CSS */
+/*CSS created by Christopher Jay De Claro*/
+/*github.com/cjdeclaro*/
+
+/* GLOBAL OVERRIDE TO PREVENT HORIZONTAL SCROLL */
+
+html, body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+}
+
+/* Key Art default settings */
+
+.keyart {
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	z-index: 10;
+}
+
+.keyart_layer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	will-change: transform;
+	overflow-x: hidden;
+}
+
+/* Optional: Parallax movement control */
+
+.keyart_layer.parallax {
+	position: fixed;
+}
+
+/* Main content (on top of parallax) */
+
+.main-content {
+	position: relative;
+	width: 100%;
+	padding: 2rem;
+	z-index: 200;
+	color: white;
+}
+
+/* ADD OR REMOVE LAYERS AS NEEDED */
+
+#keyart-0 {
+	background-image: url('img/parallax0.png');
+	z-index: 1;
+}
+
+#keyart-1 {
+	background-image: url('img/parallax1.png');
+	z-index: 2;
+}
+
+#keyart-2 {
+	background-image: url('img/parallax2.png');
+	z-index: 3;
+}
+
+#keyart-3 {
+	background-image: url('img/parallax3.png');
+	z-index: 4;
+}
+
+#keyart-4 {
+	background-image: url('img/parallax4.png');
+	z-index: 5;
+}
+
+#keyart-5 {
+	background-image: url('img/parallax5.png');
+	z-index: 6;
+}
+
+#keyart-6 {
+	background-image: url('img/parallax6.png');
+	z-index: 7;
+}
+
+#keyart-7 {
+	background-image: url('img/parallax7.png');
+	z-index: 8;
+}
+
+#keyart-8 {
+	background-image: url('img/parallax8.png');
+	z-index: 9;
+}
+
+#keyart-scrim {
+	opacity: 0;
+}
